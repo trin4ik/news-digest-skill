@@ -12,14 +12,12 @@ news-digest/
     scheduling-prompt.md            # prompt template for external schedulers
   defaults/
     settings.yaml                   # default settings for fresh install
-  migrations/
-    trin-settings.yaml              # migrated v1 → v2 config for Trin
   README.md                         # this file
 ```
 
 ## Install
 
-1. Drop the `news-digest/` folder (the entire skill, **excluding** `migrations/` and `README.md` if you want a clean install) into your skills directory.
+1. Drop the `news-digest/` folder (the entire skill, **excluding** `README.md` if you want a clean install) into your skills directory.
 2. On first invocation, the skill creates `<workspace>/news-digest-data/` and runs the setup wizard. The default `settings.yaml` and templates are copied from the skill folder.
 
 Minimum files for a working skill install:
@@ -36,11 +34,10 @@ news-digest/
 If you already have a `news-digest-data/settings.yaml` on schema version 1:
 
 1. Back up the existing `settings.yaml`.
-2. Replace it with `migrations/trin-settings.yaml` (rename to `settings.yaml`).
-3. The migrated config has `init.complete: true`, so the skill skips the wizard and goes straight to collection.
-4. Existing `seen.jsonl` and `source-notes.md` are kept as-is.
-5. `feedback.jsonl` will be created on first feedback event — no action needed.
-6. Templates: copy `templates/*.md` from the skill folder into `news-digest-data/templates/` once. Edit them to taste.
+2. The migrated config has `init.complete: true`, so the skill skips the wizard and goes straight to collection.
+3. Existing `seen.jsonl` and `source-notes.md` are kept as-is.
+4. `feedback.jsonl` will be created on first feedback event — no action needed.
+5. Templates: copy `templates/*.md` from the skill folder into `news-digest-data/templates/` once. Edit them to taste.
 
 Changes from v1 to v2:
 
