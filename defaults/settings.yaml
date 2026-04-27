@@ -1,0 +1,67 @@
+# news-digest settings
+# Edited manually or by the skill. Comments document each section.
+
+version: 2
+
+# Onboarding state. While complete=false, the skill resumes the wizard
+# from current_step instead of collecting news. Steps:
+# locale | timezone | output | templates | topics | first_run | feedback | done
+init:
+  complete: false
+  current_step: locale
+
+# Output language (BCP 47 short form, e.g. "en", "ru").
+locale: en
+
+# IANA timezone, e.g. "Europe/Moscow", "America/Los_Angeles".
+# Used to render datetimes and to generate manual-HHMMSS slot names.
+timezone: UTC
+
+# Output settings. Output language is taken from top-level `locale`.
+output:
+  max_items_total: 10              # cap for items in a digest
+  min_importance_default: important # baseline filter; topics may override
+  telegram_style: compact          # compact | detailed (Telegram is the primary delivery target)
+
+# Retention windows.
+retention:
+  seen_days: 90                    # how long entries in seen.jsonl are kept; older entries pruned at start of every run
+  raw_cache_days: 14               # how long YYYY-MM-DD/raw/ is kept; older dirs pruned at start of every run
+  feedback_compaction_months: 6    # how often to consider feedback compaction
+
+# Source policy.
+source_policy:
+  prefer_primary_sources: true
+  allow_source_discovery: true
+  allow_web_search: true
+  allow_social_search_via_web: true
+  blocked_sources: []              # global block list (domains/names)
+
+# Importance level definitions. Editing these changes ranking semantics.
+importance_levels:
+  critical: releases, breaking changes, security issues, major product/API/pricing changes
+  important: meaningful launches, benchmarks, ecosystem shifts, notable technical writeups, widely discussed community findings
+  interesting: useful but lower-stakes; include only if space allows
+  ignore: SEO churn, thin reposts, rumor-only posts, generic listicles
+
+# Topics. Filled by the wizard. Each topic schema:
+#
+# - id: <slug, lowercase, no spaces>
+#   name: <human readable>
+#   enabled: true
+#   priority: 50              # higher = more shelf space
+#   min_importance: important
+#   focus:                    # 2-5 short lines describing user interest
+#     - "..."
+#   search_queries:           # terms / names / projects for web search
+#     - "..."
+#   preferred_sources:        # discovered by the skill, edited by user
+#     official: []
+#     community: []
+#     media: []
+#     social: []
+#   negative_examples: []     # what to avoid (e.g. "generic listicles")
+#   blocked_sources: []       # per-topic block list
+#   boost_keywords: []        # populated by feedback compaction
+#   penalty_keywords: []      # populated by feedback compaction
+topics: []
