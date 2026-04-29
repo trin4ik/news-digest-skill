@@ -3,4 +3,4 @@
 
 {{summary}}
 
-Why it matters: {{why_it_matters}}
+Почему это важно: {{why_it_matters}}

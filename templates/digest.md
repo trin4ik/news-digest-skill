@@ -1,4 +1,4 @@
-# News digest — {{date}} · {{slot}}
+# Новостной дайджест — {{date}} · {{slot}}
 
 {{intro_optional}}
 

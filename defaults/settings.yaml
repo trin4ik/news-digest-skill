@@ -1,67 +1,67 @@
-# news-digest settings
-# Edited manually or by the skill. Comments document each section.
+# Настройки news-digest
+# Редактируется вручную или скиллом. Комментарии документируют каждую секцию.
 
 version: 2
 
-# Onboarding state. While complete=false, the skill resumes the wizard
-# from current_step instead of collecting news. Steps:
+# Состояние онбординга. Пока complete=false, скилл продолжает мастер
+# с current_step вместо сбора новостей. Шаги:
 # locale | timezone | output | templates | topics | first_run | feedback | done
 init:
   complete: false
   current_step: locale
 
-# Output language (BCP 47 short form, e.g. "en", "ru").
+# Язык вывода (короткая форма BCP 47, например "en", "ru").
 locale: en
 
-# IANA timezone, e.g. "Europe/Moscow", "America/Los_Angeles".
-# Used to render datetimes and to generate manual-HHMMSS slot names.
+# Часовой пояс IANA, например "Europe/Moscow", "America/Los_Angeles".
+# Используется для рендера дат/времени и генерации имён слотов manual-HHMMSS.
 timezone: UTC
 
-# Output settings. Output language is taken from top-level `locale`.
+# Настройки вывода. Язык вывода берётся из верхнеуровневого `locale`.
 output:
-  max_items_total: 10              # cap for items in a digest
-  min_importance_default: important # baseline filter; topics may override
-  telegram_style: compact          # compact | detailed (Telegram is the primary delivery target)
+  max_items_total: 10              # лимит элементов в дайджесте
+  min_importance_default: important # базовый фильтр; темы могут переопределять
+  telegram_style: compact          # compact | detailed (Telegram — основная цель доставки)
 
-# Retention windows.
+# Окна хранения.
 retention:
-  seen_days: 90                    # how long entries in seen.jsonl are kept; older entries pruned at start of every run
-  raw_cache_days: 14               # how long YYYY-MM-DD/raw/ is kept; older dirs pruned at start of every run
-  feedback_compaction_months: 6    # how often to consider feedback compaction
+  seen_days: 90                    # сколько хранить записи seen.jsonl; старее — удаляются в начале каждого прогона
+  raw_cache_days: 14               # сколько хранить YYYY-MM-DD/raw/; старее — удаляются в начале каждого прогона
+  feedback_compaction_months: 6    # как часто рассматривать компактификацию фидбека
 
-# Source policy.
+# Политика источников.
 source_policy:
   prefer_primary_sources: true
   allow_source_discovery: true
   allow_web_search: true
   allow_social_search_via_web: true
-  blocked_sources: []              # global block list (domains/names)
+  blocked_sources: []              # глобальный блок-лист (домены/имена)
 
-# Importance level definitions. Editing these changes ranking semantics.
+# Определения уровней важности. Редактирование меняет семантику ранжирования.
 importance_levels:
-  critical: releases, breaking changes, security issues, major product/API/pricing changes
-  important: meaningful launches, benchmarks, ecosystem shifts, notable technical writeups, widely discussed community findings
-  interesting: useful but lower-stakes; include only if space allows
-  ignore: SEO churn, thin reposts, rumor-only posts, generic listicles
+  critical: релизы, breaking changes, проблемы безопасности, крупные изменения продукта/API/цен
+  important: значимые запуски, бенчмарки, сдвиги экосистемы, заметные технические тексты, широко обсуждаемые находки сообщества
+  interesting: полезное, но менее важное; включай только если есть место
+  ignore: SEO-мусор, тонкие репосты, посты-слухи, общие листиклы
 
-# Topics. Filled by the wizard. Each topic schema:
+# Темы. Заполняются мастером. Схема каждой темы:
 #
-# - id: <slug, lowercase, no spaces>
-#   name: <human readable>
+# - id: <slug, нижний регистр, без пробелов>
+#   name: <человеко-читаемое>
 #   enabled: true
-#   priority: 50              # higher = more shelf space
+#   priority: 50              # больше = больше места
 #   min_importance: important
-#   focus:                    # 2-5 short lines describing user interest
+#   focus:                    # 2-5 коротких строк с описанием интереса пользователя
 #     - "..."
-#   search_queries:           # terms / names / projects for web search
+#   search_queries:           # термины / имена / проекты для веб-поиска
 #     - "..."
-#   preferred_sources:        # discovered by the skill, edited by user
+#   preferred_sources:        # обнаруживаются скиллом, редактируются пользователем
 #     official: []
 #     community: []
 #     media: []
 #     social: []
-#   negative_examples: []     # what to avoid (e.g. "generic listicles")
-#   blocked_sources: []       # per-topic block list
-#   boost_keywords: []        # populated by feedback compaction
-#   penalty_keywords: []      # populated by feedback compaction
+#   negative_examples: []     # чего избегать (например, "общие листиклы")
+#   blocked_sources: []       # пер-темный блок-лист
+#   boost_keywords: []        # заполняется компактификацией фидбека
+#   penalty_keywords: []      # заполняется компактификацией фидбека
 topics: []

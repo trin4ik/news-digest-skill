@@ -1,3 +1,3 @@
-# News digest — {{date}} · {{slot}}
+# Новостной дайджест — {{date}} · {{slot}}
 
-No high-signal updates for the configured topics in this run.
+В этом прогоне нет значимых обновлений по настроенным темам.

@@ -1,26 +1,26 @@
 # news-digest skill
 
-## Layout
+## Структура
 
 ```
 news-digest/
-  SKILL.md                          # main skill file
+  SKILL.md                          # основной файл скилла
   templates/
-    item.md                         # single news item template
-    digest.md                       # digest wrapper template
-    empty.md                        # used when nothing qualifies
-    scheduling-prompt.md            # prompt template for external schedulers
+    item.md                         # шаблон одного элемента новости
+    digest.md                       # шаблон обёртки дайджеста
+    empty.md                        # используется, когда ничего не подошло
+    scheduling-prompt.md            # шаблон промпта для внешних планировщиков
   defaults/
-    settings.yaml                   # default settings for fresh install
-  README.md                         # this file
+    settings.yaml                   # дефолтные настройки для свежей установки
+  README.md                         # этот файл
 ```
 
-## Install
+## Установка
 
-1. Drop the `news-digest/` folder (the entire skill, **excluding** `README.md` if you want a clean install) into your skills directory.
-2. On first invocation, the skill creates `<workspace>/news-digest-data/` and runs the setup wizard. The default `settings.yaml` and templates are copied from the skill folder.
+1. Положи папку `news-digest/` (целиком, **без** `README.md`, если хочешь чистую установку) в свою директорию скиллов.
+2. При первом вызове скилл создаст `<workspace>/news-digest-data/` и запустит мастер настройки. Дефолтный `settings.yaml` и шаблоны копируются из папки скилла.
 
-Minimum files for a working skill install:
+Минимум файлов для рабочей установки скилла:
 
 ```
 news-digest/
@@ -29,28 +29,28 @@ news-digest/
   defaults/settings.yaml
 ```
 
-## Migrating from v1 (Trin)
+## Миграция с v1 (Trin)
 
-If you already have a `news-digest-data/settings.yaml` on schema version 1:
+Если у вас уже есть `news-digest-data/settings.yaml` со схемой версии 1:
 
-1. Back up the existing `settings.yaml`.
-2. The migrated config has `init.complete: true`, so the skill skips the wizard and goes straight to collection.
-3. Existing `seen.jsonl` and `source-notes.md` are kept as-is.
-4. `feedback.jsonl` will be created on first feedback event — no action needed.
-5. Templates: copy `templates/*.md` from the skill folder into `news-digest-data/templates/` once. Edit them to taste.
+1. Сделайте бэкап существующего `settings.yaml`.
+2. У мигрированного конфига `init.complete: true`, поэтому скилл пропускает мастер и сразу переходит к сбору.
+3. Существующие `seen.jsonl` и `source-notes.md` сохраняются как есть.
+4. `feedback.jsonl` создастся при первом событии фидбека — действий не требуется.
+5. Шаблоны: один раз скопируйте `templates/*.md` из папки скилла в `news-digest-data/templates/`. Редактируйте по вкусу.
 
-Changes from v1 to v2:
+Изменения с v1 на v2:
 
-- Removed top-level `schedule:` (skill no longer manages cron).
-- Removed `output.item_format` (rendering driven by templates).
-- Removed `source_policy.use_configured_sources_as_hints_not_limits` (always true).
-- Added `init` (onboarding state).
-- Added `retention.feedback_compaction_months`.
-- Added per-topic `blocked_sources`, `boost_keywords`, `penalty_keywords`.
-- Added `feedback.jsonl` (append-only feedback log).
-- Added `templates/` (digest rendering).
+- Удалён топ-уровневый `schedule:` (скилл больше не управляет cron).
+- Удалён `output.item_format` (рендеринг управляется шаблонами).
+- Удалён `source_policy.use_configured_sources_as_hints_not_limits` (теперь всегда true).
+- Добавлен `init` (состояние онбординга).
+- Добавлен `retention.feedback_compaction_months`.
+- Добавлены пер-темные `blocked_sources`, `boost_keywords`, `penalty_keywords`.
+- Добавлен `feedback.jsonl` (append-only журнал фидбека).
+- Добавлен `templates/` (рендеринг дайджеста).
 
-## Scheduling
+## Расписание
 
-The skill never registers cron jobs itself. To get scheduled digests, ask the skill "помоги настроить расписание" / "help me set up scheduling" — it renders `templates/scheduling-prompt.md` with your slot/time choices and gives you a prompt to install in your own scheduler (OpenClaw cron, system cron + a CLI agent, etc.).
+Скилл никогда не регистрирует cron-задачи сам. Чтобы получать дайджесты по расписанию, попроси скилл «помоги настроить расписание» / «help me set up scheduling» — он отрендерит `templates/scheduling-prompt.md` с твоими слотами/временами и выдаст промпт для установки в твой собственный планировщик (OpenClaw cron, системный cron + CLI-агент и т.д.).
 # news-digest-skill
